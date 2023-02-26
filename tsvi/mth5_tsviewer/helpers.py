@@ -1,4 +1,5 @@
 import holoviews as hv
+from holoviews.operation.datashader import datashade
 import hvplot
 import panel as pn
 
@@ -134,26 +135,25 @@ def make_plots(obj):
     data_dict = get_mth5_data_as_xarrays(obj.channels.value, obj.file_paths)
     # data_dict = preprocess(data_dict, obj.subtract_mean_checkbox.value)
     # plot_cards = make_plots(data_dict)
-    # from holoviews.operation.datashader import datashade
     for selected_channel,data in data_dict.items():
         selected_file, station, run, channel = selected_channel.split("/")
         ylabel = data.type
         if obj.subtract_mean_checkbox.value == True:
             data = data - data.mean()
-            plot = hvplot.hvPlot(data,
-                                 width = obj.plot_width,
-                                 height = obj.plot_height,
-                                 cmap = obj.colormap,
-                                 ylabel = ylabel)
-            #plot = datashade(hv.Curve(data))
+            # plot = hvplot.hvPlot(data,
+            #                      width = obj.plot_width,
+            #                      height = obj.plot_height,
+            #                      cmap = obj.colormap,
+            #                      ylabel = ylabel)
+            plot = datashade(hv.Curve(data))
             obj.plots[selected_channel] = plot
-            if obj.plotting_library.value == "bokeh":
-                bound_plot = pn.bind(plot,
-                                     datashade = obj.datashade_checkbox,
-                                     shared_axes = obj.shared_axes_checkbox)
-
-            elif obj.plotting_library.value == "matplotlib":
-                fig = Figure(figsize = (8,6))
+            # if obj.plotting_library.value == "bokeh":
+            #     bound_plot = pn.bind(plot,
+            #                          datashade = obj.datashade_checkbox,
+            #                          shared_axes = obj.shared_axes_checkbox)
+            #
+            # elif obj.plotting_library.value == "matplotlib":
+            #     fig = Figure(figsize = (8,6))
 
             invert_button = pn.widgets.Button(name="Invert", button_type="primary", width=100)
 
@@ -161,7 +161,7 @@ def make_plots(obj):
             controls = pn.Column(
                 invert_button,
                 sizing_mode = "fixed", width = 200,)
-            plot_pane = pn.Pane(bound_plot)
+            plot_pane = pn.Pane(plot)
             plot_tab = pn.Row(plot_pane,
                               controls,
                               name = run + "/" + channel)
