@@ -33,7 +33,6 @@ from tsvi.mth5_tsviewer.helpers import channel_summary_columns_to_display
 from tsvi.mth5_tsviewer.helpers import cpu_usage_widget
 from tsvi.mth5_tsviewer.helpers import get_templates_dict
 from tsvi.mth5_tsviewer.helpers import make_plots
-from tsvi.mth5_tsviewer.helpers import list_h5s_to_plot
 from tsvi.mth5_tsviewer.helpers import memory_usage_widget
 from tsvi.mth5_tsviewer.helpers import set_channel_paths
 
