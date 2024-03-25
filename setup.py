@@ -5,6 +5,7 @@ from typing import List, Dict
 install_requires=[
     "bokeh",
     "cytoolz",
+    "dask[dataframe]",
     "datashader",
     "holoviews",
     "hvplot",
@@ -33,7 +34,7 @@ setup(
     name = "tsvi",
     version = "0.0.1",
     author = "",
-    author_email = "brunorpinho10@gmail.com",
+    author_email = "magnetotellurics@gmail.com",
     packages=find_packages(),
     install_requires=install_requires,
     extras_require=extras_require,
